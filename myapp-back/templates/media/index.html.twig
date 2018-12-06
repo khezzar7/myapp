@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+
+<table>
+
+
+  {% for media in medias %}
+  <tr>
+    <td>{{media.title}}</td>
+    <td>{{media.type}}</td>
+    <td>{{media.author}}</td>
+
+  </tr>
+
+  {% endfor %}
+</tr>
+</table>
+{% endblock %}
