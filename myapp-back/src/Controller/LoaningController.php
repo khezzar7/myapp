@@ -19,13 +19,5 @@ class LoaningController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/loaning/add", name="loaning_add")
-     */
-    public function index()
-    {
-        return $this->render('loaning/index.html.twig', [
-            'controller_name' => 'LoaningController',
-        ]);
-    }
+  
 }
