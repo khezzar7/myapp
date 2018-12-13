@@ -1,13 +1,22 @@
 <!--The content below is only a placeholder and can be replaced.-->
 
+  <div class="container">
+
+  <h1>My App!</h1>
+  <input [(ngModel)]="user" type="text" placeholder="User">
+  <input [(ngModel)]="search" type="search" placeholder="Search">
+  <button
+  >Rechercher</button>
+
 
     <table class='table table-striped table-bordered'>
-      <thead>
+      <thead class="bg-primary">
         <tr>
           <th>id</th>
           <th>Titre</th>
           <th>Auteur</th>
           <th>Type</th>
+          <td>Emprunter</td>
 
         </tr>
       </thead>
@@ -17,18 +26,13 @@
         <td>{{media.title}}</td>
         <td>{{media.author}}</td>
         <td>{{media.type}}</td>
+        <td (click)="loan()"><a class="btn btn-sm btn-primary">Emprunter</a></td>
         </tr>
       </tbody>
-
     </table>
 
+  </div>
 
-    <select [(ngModel)]="type">
-      <option value="0">Veuillez choisir le type de media</option>
-      <option value="1">Livre</option>
-      <option value="2">Film</option>
-      <option value="3">Audio</option>
-    </select>
 
 
 <router-outlet></router-outlet>

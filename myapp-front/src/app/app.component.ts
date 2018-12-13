@@ -26,4 +26,8 @@ export class AppComponent {
       this.medias = medias;
     })
   }
+  loan(){
+    console.log('emprunter');
+    
+  }
 }
