@@ -28,15 +28,17 @@ class Media
      */
     private $type;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Loaning", mappedBy="media")
-     */
-    private $loanings;
+
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $author;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Loaning", mappedBy="media")
+     */
+    private $loanings;
 
     public function __construct()
     {
@@ -72,6 +74,20 @@ class Media
         return $this;
     }
 
+
+
+    public function getAuthor(): ?string
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(string $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
     /**
      * @return Collection|Loaning[]
      */
@@ -99,18 +115,6 @@ class Media
                 $loaning->setMedia(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(string $author): self
-    {
-        $this->author = $author;
 
         return $this;
     }

@@ -22,10 +22,23 @@ class MediaRepository extends ServiceEntityRepository
     public function findByAssoc(){
       $connection = $this->getEntityManager()->getConnection();
       $sql=
-      'SELECT * FROM media';
+      'SELECT
+      media.id,
+      media.title,
+      media.type,
+      media.author,
+      loaning.start,
+      loaning.end,
+      loaning.user
+      FROM media
+      LEFT JOIN loaning ON loaning.media_id = media.id
+      WHERE loaning.end >= NOW()
+      OR loaning.end IS NULL';
       $query=$connection->prepare($sql);
       $query->execute();
       return  $query->fetchAll();
 
     }
+
+    
 }

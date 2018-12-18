@@ -19,32 +19,13 @@ class LoaningRepository extends ServiceEntityRepository
         parent::__construct($registry, Loaning::class);
     }
 
-    // /**
-    //  * @return Loaning[] Returns an array of Loaning objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findAllByPast()
     {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('l.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+      $connection = $this-> getEntityManager()->getConnection();
+      $sql=
+      'SELECT * FROM loaning WHERE loaning.end < NOW()';
+      $query=$connection->prepare($sql);
+      $query->execute();
+      return  $query->fetchAll();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Loaning
-    {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

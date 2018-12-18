@@ -19,9 +19,9 @@ class MediaType extends AbstractType
             ->add('title')
             ->add('type',ChoiceType::class,array(
               'choices'=>array(
-                'Livre'=>1,
-                'Film'=>2,
-                'Audio'=>3
+                'Livre'=>'Livre',
+                'Film'=>'Film',
+                'Audio'=>'Audio'
               )
             ))
             ->add('author')
