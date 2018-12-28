@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\DateTime;
-
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LoaningRepository")
  */
@@ -33,19 +32,17 @@ class Loaning
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Media", inversedBy="loanings")
-     */
-    private $media;
+    * @ORM\ManyToOne(targetEntity="App\Entity\Media", inversedBy="loanings")
+    */
+   private $media;
 
-    function __construct($media, $user)
-    {
-      $this -> media = $media;
-      $this -> start = new  \DateTime('now');
-      $this -> end = new  \DateTime(
-        'now +30 days');
-      $this -> user = $user;
-
-    }
+   function __construct($media, $user)
+   {
+     $this->media = $media;
+     $this->start = new \DateTime('now');
+     $this->end = new \DateTime('now +30 days');
+     $this->user = $user;
+   }
 
     public function getId(): ?int
     {
@@ -87,16 +84,13 @@ class Loaning
 
         return $this;
     }
-
     public function getMedia(): ?Media
-    {
-        return $this->media;
-    }
-
-    public function setMedia(?Media $media): self
-    {
-        $this->media = $media;
-
-        return $this;
-    }
+   {
+       return $this->media;
+   }
+   public function setMedia(?Media $media): self
+   {
+       $this->media = $media;
+       return $this;
+   }
 }

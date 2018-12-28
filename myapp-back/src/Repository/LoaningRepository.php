@@ -20,12 +20,18 @@ class LoaningRepository extends ServiceEntityRepository
     }
 
     public function findAllByPast()
-    {
-      $connection = $this-> getEntityManager()->getConnection();
-      $sql=
-      'SELECT * FROM loaning WHERE loaning.end < NOW()';
-      $query=$connection->prepare($sql);
-      $query->execute();
-      return  $query->fetchAll();
-    }
+   {
+     $conn = $this->getEntityManager()->getConnection();
+     $sql =
+     'SELECT
+       loaning.start,
+       loaning.end,
+       loaning.user
+       FROM loaning
+       WHERE loaning.end < NOW()'
+       ;
+     $query = $conn->prepare($sql);
+     $query->execute();
+     return $query->fetchAll();
+   }
 }

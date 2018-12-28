@@ -4,14 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Loaning;
 use App\Entity\Media;
-
 use App\Form\LoaningType;
 use App\Repository\LoaningRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -20,13 +19,22 @@ use Symfony\Component\Routing\Annotation\Route;
 class LoaningController extends AbstractController
 {
   /**
+   * @Route("/history", name="loaning_history", methods="GET")
+   */
+   public function history(LoaningRepository $loaningRepository){
+     return new JsonResponse($loaningRepository->findAllByPast());
+   }
+  /**
    * @Route("/api", name="loaning_api", methods="POST")
    */
-   public function api(Request $request)
+   public function api(UserRepository $userRepository ,Request $request)
    {
      $req_body = json_decode($request->getContent());
      $media_id = $req_body->media_id;
      $user = $req_body->user;
+     $token = $req_body->token;
+
+     if($userRepository -> findBypseudoAndToken($user, $token)){
 
      //
      $media = $this->getDoctrine()->getRepository(Media::class)->find($media_id);
@@ -37,15 +45,19 @@ class LoaningController extends AbstractController
      $em->persist($loaning);
      $em->flush();
 
-     return new JsonResponse($loaning->getEnd()->format('Y-m-d'));
+     return new JsonResponse([
+       'result'=>true,
+       'end'=>$loaning->getEnd()->format('Y-m-d')]);
+   }else {
+     return new JsonResponse(
+       [
+         'result'=>false,
+         'end'=>null
+       ]);
+   }
    }
 
-   /**
-    * @Route("/history", name="loaning_history", methods="GET")
-    */
-    public function history(LoaningRepository $loaningRepository){
-      return new JsonResponse($loaningRepository->findAllByPast());
-    }
+
     /**
      * @Route("/", name="loaning_index", methods="GET")
      */

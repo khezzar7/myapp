@@ -21,14 +21,12 @@ class Media
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $title;
+    private $type;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $type;
-
-
+    private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -36,7 +34,7 @@ class Media
     private $author;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Loaning", mappedBy="media")
+     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="media")
      */
     private $loanings;
 
@@ -48,18 +46,6 @@ class Media
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
-
-        return $this;
     }
 
     public function getType(): ?string
@@ -74,7 +60,17 @@ class Media
         return $this;
     }
 
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
 
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
 
     public function getAuthor(): ?string
     {
@@ -89,14 +85,14 @@ class Media
     }
 
     /**
-     * @return Collection|Loaning[]
+     * @return Collection|self[]
      */
     public function getLoanings(): Collection
     {
         return $this->loanings;
     }
 
-    public function addLoaning(Loaning $loaning): self
+    public function addLoaning(self $loaning): self
     {
         if (!$this->loanings->contains($loaning)) {
             $this->loanings[] = $loaning;
@@ -106,7 +102,7 @@ class Media
         return $this;
     }
 
-    public function removeLoaning(Loaning $loaning): self
+    public function removeLoaning(self $loaning): self
     {
         if ($this->loanings->contains($loaning)) {
             $this->loanings->removeElement($loaning);
